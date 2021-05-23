@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react'
 
-export const SearchPanel = ({ param, setParam, users }) => {
+export interface User {
+    "id": string
+    "name": string
+    "personId": string
+    "organization": string
+
+}
+interface SearchPanelProps {
+    param: {
+        name: string;
+        personId: string
+    };
+    setParam: (param: SearchPanelProps['param']) => void;
+    users: User[];
+}
+
+export const SearchPanel = ({ param, setParam, users }: SearchPanelProps) => {
 
 
 
@@ -16,7 +32,7 @@ export const SearchPanel = ({ param, setParam, users }) => {
             })}>
                 <option value="">负责人</option>
                 {
-                    users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
+                    users.map((user: any) => <option key={user.id} value={user.id}>{user.name}</option>)
                 }
             </select>
         </div>
