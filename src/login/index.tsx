@@ -1,4 +1,5 @@
 import { FormEvent } from "react"
+import { login } from "../auth-provider"
 
 export const LoginScreen = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -6,15 +7,8 @@ export const LoginScreen = () => {
         // 如果不写as HTMLInputElement那么类型推断会推断为Element类型，as HTMLInputElement 告诉ts，我知道是什么类型
         const username = (e.currentTarget.elements[0] as HTMLInputElement).value
         const password = (e.currentTarget.elements[1] as HTMLInputElement).value
+        login({ username, password })
 
-
-        fetch('http://localhost:3001/login', {
-            method: 'POST',
-            body: JSON.stringify({ username, password })
-        }).then(async res => {
-            console.log(await res.json());
-
-        })
     }
     return <form onSubmit={handleSubmit}>
         <div>
