@@ -11,7 +11,7 @@ export const handleUserResponse = ({ user }: { user: User }) => {
 
 export const login = (data: { username: string, password: string }) => {
 
-    fetch('http://localhost:3001/login', {
+    return fetch('http://localhost:3001/login', {
         method: 'POST',
         body: JSON.stringify(data)
     }).then(async res => {
@@ -19,6 +19,6 @@ export const login = (data: { username: string, password: string }) => {
     })
 }
 
-export const logout = () => {
+export const logout = async () => {
     window.localStorage.removeItem(localStorageKey)
 }

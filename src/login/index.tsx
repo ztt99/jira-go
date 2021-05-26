@@ -1,7 +1,9 @@
 import { FormEvent } from "react"
-import { login } from "../auth-provider"
+import { useAuth } from "../context/auth-context"
 
 export const LoginScreen = () => {
+
+    const { login } = useAuth()
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         // 如果不写as HTMLInputElement那么类型推断会推断为Element类型，as HTMLInputElement 告诉ts，我知道是什么类型
