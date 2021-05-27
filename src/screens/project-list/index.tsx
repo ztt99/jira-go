@@ -3,6 +3,7 @@ import qs from 'qs'
 import { List } from "./list"
 import { SearchPanel } from "./search-panel"
 import { cleanObject, useDebounced, useMount } from '../../utils'
+import { useHttp } from '../../utils/http'
 
 export const ProjectListScreen = () => {
     const [param, setParam] = useState({
@@ -11,10 +12,12 @@ export const ProjectListScreen = () => {
     })
     const [users, setUsers] = useState([])
     const [list, setList] = useState([])
+    const http = useHttp()
+
 
     const debouncedvalue = useDebounced(param, 1000)
     useEffect(() => {
-        fetch('http://localhost:3001/projects?' + qs.stringify(cleanObject(debouncedvalue))).then(async res => {
+        http('http://localhost:3001/projects?' + qs.stringify(cleanObject(debouncedvalue))).then(async res => {
             if (res.ok) {
                 setList(await res.json())
             }

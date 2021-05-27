@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <ProjectListScreen></ProjectListScreen> */}
+        <ProjectListScreen></ProjectListScreen>
         <LoginScreen></LoginScreen>
       </header>
     </div>

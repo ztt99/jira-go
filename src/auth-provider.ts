@@ -10,7 +10,6 @@ export const handleUserResponse = ({ user }: { user: User }) => {
 }
 
 export const login = (data: { username: string, password: string }) => {
-
     return fetch('http://localhost:3001/login', {
         method: 'POST',
         body: JSON.stringify(data)
