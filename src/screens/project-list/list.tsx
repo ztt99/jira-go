@@ -1,4 +1,4 @@
-import { Table } from 'antd'
+import { Table, TableProps } from 'antd'
 import { User } from './search-panel';
 
 interface Project {
@@ -8,11 +8,10 @@ interface Project {
     pin: boolean;
     organization: string
 }
-interface SearchPanelProps {
-    list: Project[];
+interface SearchPanelProps extends TableProps<Project> {
     users: User[];
 }
-export const List = ({ list, users }: SearchPanelProps) => {
+export const List = ({ users }: SearchPanelProps) => {
 
     const columns = [
         {
@@ -28,5 +27,5 @@ export const List = ({ list, users }: SearchPanelProps) => {
             render: (v: string) => users.find((item) => item.id === v)?.name
         },
     ];
-    return <Table dataSource={list} columns={columns} />;
+    return <Table columns={columns} />;
 }
