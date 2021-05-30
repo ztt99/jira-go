@@ -4,7 +4,6 @@ import './index.css';
 import 'antd/dist/antd.less'
 import App from './App';
 import { AppProviders } from './context/index';
-
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

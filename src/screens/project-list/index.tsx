@@ -5,6 +5,7 @@ import { SearchPanel } from "./search-panel"
 import { cleanObject, useDebounced, useMount } from '../../utils'
 import { useHttp } from '../../utils/http'
 import { useAsync } from '../../utils/use-async'
+import { Helmet } from 'react-helmet'
 
 export const ProjectListScreen = () => {
     const [param, setParam] = useState({
@@ -35,6 +36,9 @@ export const ProjectListScreen = () => {
         })
     })
     return <div className="">
+        <Helmet>
+            <title>项目首页</title>
+        </Helmet>
         <SearchPanel param={param} setParam={setParam} users={users}></SearchPanel>
         <List loading={isLoading} dataSource={list || []} users={users} ></List>
     </div >
