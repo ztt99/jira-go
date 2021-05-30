@@ -1,6 +1,6 @@
 import { Table, TableProps } from 'antd'
 import { User } from './search-panel';
-
+import { Link } from 'react-router-dom'
 export interface Project {
     id: string;
     name: string;
@@ -18,6 +18,11 @@ export const List = ({ users, ...props }: SearchPanelProps) => {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
+            sorter: (a: any, b: any) => a.name.localeCompare(b.name),
+            render(value: any, project: any) {
+                // 可以直接传递动态路由参数，因为此路由是在/projects进入的，所以会拼接
+                return <Link to={`${project.id}`}>{value}</Link>
+            }
 
         },
         {
