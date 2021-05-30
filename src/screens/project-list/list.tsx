@@ -1,7 +1,7 @@
 import { Table, TableProps } from 'antd'
 import { User } from './search-panel';
 
-interface Project {
+export interface Project {
     id: string;
     name: string;
     personId: string;
@@ -11,7 +11,7 @@ interface Project {
 interface SearchPanelProps extends TableProps<Project> {
     users: User[];
 }
-export const List = ({ users }: SearchPanelProps) => {
+export const List = ({ users, ...props }: SearchPanelProps) => {
 
     const columns = [
         {
@@ -27,5 +27,5 @@ export const List = ({ users }: SearchPanelProps) => {
             render: (v: string) => users.find((item) => item.id === v)?.name
         },
     ];
-    return <Table columns={columns} />;
+    return <Table columns={columns} {...props} />;
 }

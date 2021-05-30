@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import qs from 'qs'
-import { List } from "./list"
+import { List, Project } from "./list"
 import { SearchPanel } from "./search-panel"
 import { cleanObject, useDebounced, useMount } from '../../utils'
 import { useHttp } from '../../utils/http'
+import { useAsync } from '../../utils/use-async'
 
 export const ProjectListScreen = () => {
     const [param, setParam] = useState({
@@ -11,17 +12,19 @@ export const ProjectListScreen = () => {
         personId: ''
     })
     const [users, setUsers] = useState([])
-    const [list, setList] = useState([])
     const http = useHttp()
+    const { run, isLoading, error, data: list } = useAsync<Project[]>()
 
 
     const debouncedvalue = useDebounced(param, 1000)
     useEffect(() => {
-        http('http://localhost:3001/projects?' + qs.stringify(cleanObject(debouncedvalue))).then(async res => {
-            if (res.ok) {
-                setList(await res.json())
-            }
-        })
+
+        run(
+            http('http://localhost:3001/projects', {
+                data: cleanObject(debouncedvalue)
+            })
+        )
+
 
     }, [debouncedvalue])
     useMount(() => {
@@ -33,6 +36,6 @@ export const ProjectListScreen = () => {
     })
     return <div className="">
         <SearchPanel param={param} setParam={setParam} users={users}></SearchPanel>
-        <List dataSource={list} users={users}></List>
+        <List loading={isLoading} dataSource={list || []} users={users} ></List>
     </div >
 }
